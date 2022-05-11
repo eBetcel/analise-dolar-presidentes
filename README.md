@@ -1,0 +1,1 @@
+# analise-dolar-presidentes
