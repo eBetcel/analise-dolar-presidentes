@@ -19,8 +19,7 @@ except InvalidFileException:
 try:
     DF['data'] = pd.to_datetime(DF['data'], format='%d/%m/%Y')
     DF['valor'] = DF['valor'].astype(float)
-    DF = DF['valor'].groupby(
-        DF['data'].dt.to_period('M')).agg('mean').to_frame()
+    DF = DF['valor'].groupby(DF['data'].dt.to_period('M')).agg('mean').to_frame()
     DF = DF.rolling(3).mean()
 
 except ValueError:
