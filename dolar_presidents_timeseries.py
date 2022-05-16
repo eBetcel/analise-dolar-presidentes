@@ -16,16 +16,25 @@ try:
 except InvalidFileException:
     print('There is no such {}'.format(PATH))
 
-DF['data'] = pd.to_datetime(DF['data'], format='%d/%m/%Y')
-DF['valor'] = DF['valor'].astype(float)
-DF = DF['valor'].groupby(DF['data'].dt.to_period('M')).agg('mean').to_frame()
-DF = DF.rolling(3).mean()
+try:
+    DF['data'] = pd.to_datetime(DF['data'], format='%d/%m/%Y')
+    DF['valor'] = DF['valor'].astype(float)
+    DF = DF['valor'].groupby(
+        DF['data'].dt.to_period('M')).agg('mean').to_frame()
+    DF = DF.rolling(3).mean()
 
-FHC = DF.loc['1995-01':'2003-01']
-LULA = DF.loc['2003-01':'2011-01']
-DILMA = DF.loc['2011-01':'2016-08']
-TEMER = DF.loc['2016-08':'2019-01']
-JAIR = DF.loc['2019-01':'2022-12']
+except ValueError:
+    print('Failed to convert date')
+
+try:
+    FHC = DF.loc['1995-01':'2003-01']
+    LULA = DF.loc['2003-01':'2011-01']
+    DILMA = DF.loc['2011-01':'2016-08']
+    TEMER = DF.loc['2016-08':'2019-01']
+    JAIR = DF.loc['2019-01':'2022-12']
+
+except ValueError:
+    print('Error slicing date list')
 
 style.use('fivethirtyeight')
 
