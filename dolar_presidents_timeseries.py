@@ -1,9 +1,11 @@
-"""
+'''
 This script is used to prepare data and plot a graph
 using matplotlib and pandas to
 generate data visualization about USD/BRL rate
  timeseries according to brazilian presidents
-"""
+
+'''
+
 from plistlib import InvalidFileException
 import pandas as pd
 import matplotlib.ticker as tick
@@ -12,15 +14,30 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 PATH = "bcdata.csv"
-try:
-    DF = pd.read_csv(PATH, sep=";", decimal=',')
-except InvalidFileException:
-    print('There is no such {}'.format(PATH))
+
+
+def read_data(file_path):
+    '''
+    Args:
+            path: (string) relative path to .csv file
+
+    Returns:
+            data_frame: (pd.DataFrame) pandas dataframe loaded
+    '''
+    try:
+        data_frame = pd.read_csv(file_path, sep=";", decimal=',')
+        return data_frame
+    except InvalidFileException:
+        ('There is no such {}'.format(file_path))
+
+
+DF = read_data(PATH)
 
 try:
     DF['data'] = pd.to_datetime(DF['data'], format='%d/%m/%Y')
     DF['valor'] = DF['valor'].astype(float)
-    DF = DF['valor'].groupby(DF['data'].dt.to_period('M')).agg('mean').to_frame()
+    DF = DF['valor'].groupby(
+        DF['data'].dt.to_period('M')).agg('mean').to_frame()
     DF = DF.rolling(3).mean()
 
 except ValueError:
@@ -44,34 +61,34 @@ Y_FMT = tick.FormatStrFormatter('R$%1.1f')
 AX.yaxis.set_major_formatter(Y_FMT)
 AX = plt.gca()
 AX.set_ylim([0.1, 5.9])
-# AX.text(731200.0,
-#         7.4,
-#         "Valor Dólar-Real entre 1996 e 2022",
-#         weight='bold',
-#         size=16)
-# AX.text(731800.0,
-#         7,
-#         'Presidentes e crises ao longo do período',
-#         size=12)
+AX.text(11500.0,
+        7.4,
+        "Valor Dólar-Real entre 1996 e 2022",
+        weight='bold',
+        size=16)
+AX.text(12000.0,
+        7,
+        'Presidentes e crises ao longo do período',
+        size=12)
 # # Adding a signature
-# AX.text(726872.0,
-#         -0.7,
-#         'Victor Vieira and Emanuel Betcel' + ' ' * 120 +
-#         'Source: Portal Brasileiro de Dados Abertos e Wikipedia',
-#         color='#f0f0f0',
-#         backgroundcolor='#4d4d4d',
-#         size=10)
+AX.text(8000.0,
+        -0.7,
+        'Victor Vieira and Emanuel Betcel' + ' ' * 120 +
+        'Source: Portal Brasileiro de Dados Abertos e Wikipedia',
+        color='#f0f0f0',
+        backgroundcolor='#4d4d4d',
+        size=10)
 
 WIDTH = 1.2
 
 AX.plot(FHC.index.to_timestamp(), FHC['valor'],
-        color='#BF5FFF')
+        color='#121480')
 AX.plot(LULA.index.to_timestamp(), LULA['valor'],
-        color='#ffa500')
+        color='#e81c09')
 AX.plot(DILMA.index.to_timestamp(), DILMA['valor'],
         color='#00B2EE')
 AX.plot(TEMER.index.to_timestamp(), TEMER['valor'],
-        color='#63FF45')
+        color='#044a06')
 AX.plot(JAIR.index.to_timestamp(), JAIR['valor'],
         color='#5B52FF')
 
@@ -85,13 +102,13 @@ plt.axvline(pd.Timestamp('2020-03'), color='black', linestyle='dashed',
             linewidth=WIDTH, label="Pandemia COVID-19")
 
 plt.text(9500, 0.6, 'FHC', fontsize=16, weight='bold',
-         color='#BF5FFF')
+         color='#121480')
 plt.text(12000.0, 2.0, 'LULA', fontsize=16, weight='bold',
-         color='#ffa500')
-plt.text(15000.0, 0.6, 'DILMA', fontsize=16, weight='bold',
+         color='#e81c09')
+plt.text(15000.0, 0.9, 'DILMA', fontsize=16, weight='bold',
          color='#00B2EE')
-plt.text(17000.0, 1.6, 'TEMER', fontsize=16, weight='bold',
-         color='#63FF45')
+plt.text(17000.0, 2.3, 'TEMER', fontsize=16, weight='bold',
+         color='#044a06')
 plt.text(18000.0, 2.9, 'BOLSONARO', fontsize=16, weight='bold',
          color='#5B52FF')
 
