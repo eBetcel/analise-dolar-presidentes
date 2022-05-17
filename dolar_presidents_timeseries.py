@@ -9,6 +9,7 @@ import pandas as pd
 import matplotlib.ticker as tick
 import matplotlib.style as style
 import matplotlib.pyplot as plt
+import streamlit as st
 
 PATH = "bcdata.csv"
 try:
@@ -43,26 +44,25 @@ Y_FMT = tick.FormatStrFormatter('R$%1.1f')
 AX.yaxis.set_major_formatter(Y_FMT)
 AX = plt.gca()
 AX.set_ylim([0.1, 5.9])
-AX.text(731200.0,
-        7.4,
-        "Valor Dólar-Real entre 1996 e 2022",
-        weight='bold',
-        size=16)
-AX.text(731800.0,
-        7,
-        'Presidentes e crises ao longo do período',
-        size=12)
-# Adding a signature
-AX.text(726872.0,
-        -0.7,
-        'Victor Vieira and Emanuel Betcel' + ' ' * 120 +
-        'Source: Portal Brasileiro de Dados Abertos e Wikipedia',
-        color='#f0f0f0',
-        backgroundcolor='#4d4d4d',
-        size=10)
+# AX.text(731200.0,
+#         7.4,
+#         "Valor Dólar-Real entre 1996 e 2022",
+#         weight='bold',
+#         size=16)
+# AX.text(731800.0,
+#         7,
+#         'Presidentes e crises ao longo do período',
+#         size=12)
+# # Adding a signature
+# AX.text(726872.0,
+#         -0.7,
+#         'Victor Vieira and Emanuel Betcel' + ' ' * 120 +
+#         'Source: Portal Brasileiro de Dados Abertos e Wikipedia',
+#         color='#f0f0f0',
+#         backgroundcolor='#4d4d4d',
+#         size=10)
 
-LINE_TYPE = "dashdot"
-WIDTH = 1.6
+WIDTH = 1.2
 
 AX.plot(FHC.index.to_timestamp(), FHC['valor'],
         color='#BF5FFF')
@@ -75,25 +75,24 @@ AX.plot(TEMER.index.to_timestamp(), TEMER['valor'],
 AX.plot(JAIR.index.to_timestamp(), JAIR['valor'],
         color='#5B52FF')
 
-plt.axvline(pd.Timestamp('1999-01'), color='r', linestyle=LINE_TYPE,
+plt.axvline(pd.Timestamp('1999-01'), color='black', linestyle='dashdot',
             linewidth=WIDTH, label="Efeito Samba")
-plt.axvline(pd.Timestamp('2008-09'), color='b', linestyle=LINE_TYPE,
+plt.axvline(pd.Timestamp('2008-09'), color='black', linestyle='solid',
             linewidth=WIDTH, label="Crise Financeira Global")
-plt.axvline(pd.Timestamp('2014-01'), color='purple', linestyle=LINE_TYPE,
+plt.axvline(pd.Timestamp('2014-01'), color='black', linestyle='dotted',
             linewidth=WIDTH, label="Recessão Brasileira")
-plt.axvline(pd.Timestamp('2020-03'), color='black', linestyle=LINE_TYPE,
+plt.axvline(pd.Timestamp('2020-03'), color='black', linestyle='dashed',
             linewidth=WIDTH, label="Pandemia COVID-19")
 
-
-plt.text(730000.0, 0.6, 'FHC', fontsize=16, weight='bold',
+plt.text(9500, 0.6, 'FHC', fontsize=16, weight='bold',
          color='#BF5FFF')
-plt.text(732500.0, 0.6, 'LULA', fontsize=16, weight='bold',
+plt.text(12000.0, 2.0, 'LULA', fontsize=16, weight='bold',
          color='#ffa500')
-plt.text(734300.0, 0.6, 'DILMA', fontsize=16, weight='bold',
+plt.text(15000.0, 0.6, 'DILMA', fontsize=16, weight='bold',
          color='#00B2EE')
-plt.text(736250.0, 0.6, 'TEMER', fontsize=16, weight='bold',
+plt.text(17000.0, 1.6, 'TEMER', fontsize=16, weight='bold',
          color='#63FF45')
-plt.text(737650.0, 0.6, 'JAIR', fontsize=16, weight='bold',
+plt.text(18000.0, 2.9, 'BOLSONARO', fontsize=16, weight='bold',
          color='#5B52FF')
 
 
@@ -103,3 +102,5 @@ AX.set_alpha(0.5)
 
 # plt.savefig("dolarPresidentes.jpg", dpi=100, bbox_inches='tight')
 plt.show()
+
+st.pyplot(FIG)
