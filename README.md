@@ -19,6 +19,7 @@ O arquivo Jupyter Notebook foi convertido em um script python, onde foram aplica
 
 ## Usage
 Configuração do ambiente:
+
 `pipenv shell`
 
 `pipenv install streamlit`
