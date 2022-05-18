@@ -5,7 +5,7 @@ generate data visualization about USD/BRL rate
  timeseries according to brazilian presidents
 
 '''
-
+import re
 import logging
 import pandas as pd
 import matplotlib.ticker as tick
@@ -22,6 +22,23 @@ logging.basicConfig(
 PATH = "bcdata.csv"
 
 
+def test_read_data(file_path):
+    '''
+    Args:
+            path: (string) relative path to .csv file
+
+    Returns:
+            result: (boolean) result of validation function
+    '''
+    result = True
+    if isinstance(file_path) != str:
+        result = False
+
+    result = re.match('.csv$', file_path)
+
+    return result
+
+
 def read_data(file_path):
     '''
     Args:
@@ -34,7 +51,7 @@ def read_data(file_path):
         data_frame = pd.read_csv(file_path, sep=";", decimal=',')
         return data_frame
     except FileNotFoundError:
-        logging.error('There is no such {}'.format(file_path))
+        logging.error('ERROR: we are not able to find {file}', file=file_path)
 
 
 def plot_graph(data_frame):
@@ -105,13 +122,13 @@ def plot_graph(data_frame):
         plt.axvline(pd.Timestamp('2020-03'), color='black', linestyle='dashed',
                     linewidth=width, label="Pandemia COVID-19")
 
-        plt.text(9500, 0.6, 'fhc', fontsize=16, weight='bold',
+        plt.text(9500, 0.6, 'FHC', fontsize=16, weight='bold',
                  color='#121480')
-        plt.text(12000.0, 2.0, 'lula', fontsize=16, weight='bold',
+        plt.text(12000.0, 2.0, 'LULA', fontsize=16, weight='bold',
                  color='#e81c09')
-        plt.text(15000.0, 0.9, 'dilma', fontsize=16, weight='bold',
+        plt.text(15000.0, 0.9, 'DILMA', fontsize=16, weight='bold',
                  color='#00B2EE')
-        plt.text(17000.0, 2.3, 'temer', fontsize=16, weight='bold',
+        plt.text(17000.0, 2.3, 'TEMER', fontsize=16, weight='bold',
                  color='#044a06')
         plt.text(18000.0, 2.9, 'BOLSONARO', fontsize=16, weight='bold',
                  color='#5B52FF')
@@ -131,8 +148,8 @@ def plot_graph(data_frame):
 
         st.pyplot(fig)
 
-    except Exception as e:
-        logging.error(type(e))
+    except ValueError:
+        logging.error('Error: Invalid value')
 
 
 DF = read_data(PATH)
