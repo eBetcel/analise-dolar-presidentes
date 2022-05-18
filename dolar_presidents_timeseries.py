@@ -117,7 +117,7 @@ AX.legend(loc='upper center', bbox_to_anchor=(0.5, 1.2), ncol=4, fontsize=12)
 AX.grid(alpha=0.6)
 AX.set_alpha(0.5)
 
-# plt.savefig("dolarPresidentes.jpg", dpi=100, bbox_inches='tight')
+plt.savefig("dolarPresidentes.jpg", dpi=100, bbox_inches='tight')
 plt.show()
 
 st.pyplot(FIG)
