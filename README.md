@@ -1,6 +1,8 @@
 # Análise valor Dólar Real por Presidentes
 
 Nesse projeto desenvolvemos uma visualização baseada no curso [Storytelling Data Visualization on Exchange Rates](www.dataquest.io). Nela selecionamos o valor Dólar-Real de 1996 até maio de 2022, apontando as crises que ocorreram ao longo do tempo e também os presidentes no período.
+
+[LINK PARA POST NO DEV.TO](https://dev.to/ebetcel/aplicando-boas-praticas-de-programacao-em-data-science-1f18)
 ## Dados
 Os dados do Dólar foram coletados no Portal Brasileiro de Dados Abertos e as informações destacadas foram coletadas na Wikipedia.
 O data set com os dados possue informações do valor que o dólar foi fechado em cada dia, contudo para melhorar a visualização optamos por fazer a média mensal desses valores e suavizamos o gráfico utlizando o método `rolling(3)`. Após isso selecionamos os períodos dos presidentes que foram:
