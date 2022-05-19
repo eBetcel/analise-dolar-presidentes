@@ -13,5 +13,21 @@ O data set com os dados possue informações do valor que o dólar foi fechado e
 - Jair Bolsonaro            de 01/2019 até 05/2022.
 
 ## Visualização
-a visualização consiste em gráficos de linhas que representam o valor do dolár temporalmente, eles são divididos em cores cada cor se refere ao presidente daquele período, alguns presidentes possuem pouco tempo de mandato o que acabou dificultando a organização da figura. Além dissos a figura dispõe de algumas linhas verticais e cada cor representa o início de uma crise no Brasil de acordo com [Lista de crises econômicas no Brasil](https://pt.wikipedia.org/wiki/Lista_de_crises_econ%C3%B4micas_no_Brasil). Abaixo você pode ver o resultado que obtivemos:
+A visualização consiste em gráficos de linhas que representam o valor do dolár temporalmente, eles são divididos em cores cada cor se refere ao presidente daquele período, alguns presidentes possuem pouco tempo de mandato o que acabou dificultando a organização da figura. Além dissos a figura dispõe de algumas linhas verticais e cada cor representa o início de uma crise no Brasil de acordo com [Lista de crises econômicas no Brasil](https://pt.wikipedia.org/wiki/Lista_de_crises_econ%C3%B4micas_no_Brasil). Abaixo você pode ver o resultado que obtivemos:
 ![Dolár Presidentes e Crises Brasileiras](./dolarPresidentes.jpg)
+
+## Deploy
+O arquivo Jupyter Notebook foi convertido em um script python, onde foram aplicadas boas práticas de programação, como utilização do autopep8, logging, tratamento de erros/exceções, testes e validação pelo pylint. Para rodar o gráfico em um servidor streamlit basta seguir os passos abaixo
+
+## Usage
+Configuração do ambiente:
+
+`pipenv shell`
+
+`pipenv install streamlit`
+
+`pipenv install matplotlib`
+
+Rodar a aplicação no streamlit localmente:
+
+`pipenv run dolar_presidents_timeseries.py`
